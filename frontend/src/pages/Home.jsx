@@ -1,7 +1,13 @@
-import React from 'react'
+import { useEffect } from "react"
 
 export default function Home() {
+  useEffect(
+    () => console.log("yes")
+  )
   return (
-    <div>Home</div>
+    <div>
+      <h1>home</h1>
+
+    </div>
   )
 }
