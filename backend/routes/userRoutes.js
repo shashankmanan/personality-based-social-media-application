@@ -14,12 +14,13 @@ Users  /users
 
 const {Router} = require('express')
 const userRouter = Router()
-
-//   /api/users/  GET
+const {createUser,getUsers, checkIfUsernameExists , checkIfEmailExists} = require('../controllers/userController')
+//   http://localhost:5000/api/users/  GET
 // get all users 
-userRouter.get('/' , (request,response) => {
-    response.send("this is users GET");
-})
+userRouter.get('/' , getUsers)
 
+//   http://localhost:5000/api/users/create  POST
+// creates new user 
+userRouter.post('/create', createUser)
 
 module.exports = userRouter

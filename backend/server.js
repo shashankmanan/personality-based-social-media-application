@@ -2,25 +2,30 @@ const express = require('express')
 const dotenv = require("dotenv")
 const cors = require('cors')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser');
 
 const app = express()
 dotenv.config()
 
-const {PORT,MONGODB_URL} = process.env
+const {PORT,MONGODB_URL,MONGODB_URL_LOCAL} = process.env
 const {router} = require('./routes/index')
 
-app.use("/api/" , router)
-app.use(cors)
-app.use(express.json())
+app.use(bodyParser.json())
+app.use(cors())
 
-try {
-    mongoose.connect(MONGODB_URL).then( () => {
-        console.log("succesfully connected to mongo DB")
-    })
-    app.listen(PORT , () => {
-        console.log("App is running on ",PORT)
-    })
-} catch(error) {
-    console.log("error")
+app.use("/api/" , router)
+
+const start = async () => {
+    try {
+        const conn = await mongoose.connect(MONGODB_URL_LOCAL)
+        app.listen(PORT , () => {
+            console.log("listening to port ",PORT)
+        })
+        if(conn) 
+            console.log("Succesfully connected to DB")
+    } catch(error) {
+        console.log(error)
+    }
 }
 
+start()
