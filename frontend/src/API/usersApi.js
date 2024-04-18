@@ -22,7 +22,8 @@ export const createUserApi = async (formData) => {
                     }
             }
         }
-        // localStorage.setItem("token",)
+        localStorage.setItem('auth' , response.data.token)
+        localStorage.setItem('username' , response.data.LOGGED_IN)
     } catch(error) {
         console.log({"something went wrong..." : error})
         console.log("in error")

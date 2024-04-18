@@ -186,8 +186,8 @@ export default function SignUp() {
 
               <TextField id="outlined-basic" label="Username:" variant="outlined" onChange={(e) => setUname(e.target.value)} required />
               <TextField id="outlined-basic" label="Email:" variant="outlined" onChange={(e) => setEmail(e.target.value)} required />
-              <TextField id="outlined-basic" label="Password:" variant="outlined" onChange={(e) => setPwd(e.target.value)}required />
-              <TextField id="outlined-basic" label="Confirm Password:" variant="outlined" onChange={(e) => setCpwd(e.target.value)} required />
+              <TextField id="outlined-basic" label="Password:" type ="password" variant="outlined" onChange={(e) => setPwd(e.target.value)}required />
+              <TextField id="outlined-basic" label="Confirm Password:" type ="password" variant="outlined" onChange={(e) => setCpwd(e.target.value)} required />
               {  showErrorMessage ? <Alert variant="filled" severity="error">
                 {errorMessage}
               </Alert> : <></>

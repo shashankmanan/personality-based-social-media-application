@@ -8,7 +8,7 @@ const cookies = require("cookie-parser");
 const app = express()
 dotenv.config()
 
-const {PORT,MONGODB_URL,MONGODB_URL_LOCAL} = process.env
+const {PORT,MONGODB_URL_CLOUD,MONGODB_URL_LOCAL} = process.env
 const {router} = require('./routes/index')
 
 app.use(bodyParser.json())
@@ -19,7 +19,7 @@ app.use("/api/" , router)
 
 const start = async () => {
     try {
-        const conn = await mongoose.connect(MONGODB_URL_LOCAL)
+        const conn = await mongoose.connect(MONGODB_URL_CLOUD)
         app.listen(PORT , () => {
             console.log("listening to port ",PORT)
         })

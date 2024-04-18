@@ -130,7 +130,7 @@ export default function NavBar({credentials}) {
                   <Avatar /> Profile
                 </MenuItem>
               </Link>
-              <Link to="/account/profile">
+              <Link to="/account/home">
                 <MenuItem onClick={handleClose}>
                   <Avatar /> My account
               </MenuItem>
