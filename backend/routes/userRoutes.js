@@ -15,6 +15,8 @@ Users  /users
 const {Router} = require('express')
 const userRouter = Router()
 const {createUser,getUsers, checkIfUsernameExists , checkIfEmailExists} = require('../controllers/userController')
+const {signIn} = require('../controllers/authController')
+
 //   http://localhost:5000/api/users/  GET
 // get all users 
 userRouter.get('/' , getUsers)
@@ -23,4 +25,7 @@ userRouter.get('/' , getUsers)
 // creates new user 
 userRouter.post('/create', createUser)
 
+//   http://localhost:5000/api/users/signin  POST
+// signs in a user
+userRouter.post('/signin', signIn)
 module.exports = userRouter

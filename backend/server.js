@@ -3,6 +3,7 @@ const dotenv = require("dotenv")
 const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
+const cookies = require("cookie-parser");
 
 const app = express()
 dotenv.config()
@@ -12,6 +13,7 @@ const {router} = require('./routes/index')
 
 app.use(bodyParser.json())
 app.use(cors())
+app.use(cookies());
 
 app.use("/api/" , router)
 

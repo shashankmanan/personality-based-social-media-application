@@ -13,6 +13,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import NavBar from "../components/NavBar"
 import FootBar from "../components/FootBar"
+import { useState } from 'react';
+import { signInUser } from '../API/usersApi';
+import { Alert } from '@mui/material';
+import {useNavigate} from 'react-router-dom'
 
 function Copyright(props) {
   return (
@@ -29,13 +33,31 @@ function Copyright(props) {
 
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const [username,setUsername] = useState('')
+  const [password,setPassword] = useState('')
+  const [errorMessage,setErrorMessage] = useState('')
+  const [showErrorMessage,setShowErrorMessage] = useState(false)
+  const [showSuccessMessage,setShowSuccessMessage] = useState(false)
+
+   const navigate = useNavigate()
+
+  const handleSubmit = async (event) => {
+     event.preventDefault();
+	 const APIRes = await signInUser({
+		"username": username,
+		"password": password,
+	  }) 
+	  console.log(APIRes)
+	 if(APIRes.isAuth) {
+		setShowSuccessMessage(true)
+		setTimeout(() => {
+			navigate("/account/home");
+		  }, 1000);
+	  }
+	  else {
+		setErrorMessage(APIRes.error)
+		setShowErrorMessage(true)
+	  }
   };
 
   return (
@@ -72,34 +94,40 @@ export default function SignInSide() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+			  Sign in
             </Typography>
             <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                id="email"
                 label="Username or Email address"
-                name="username"
-                autoComplete="email"
+				onChange={(e) =>setUsername(e.target.value)}
+                autoComplete="username"
                 autoFocus
               />
               <TextField
                 margin="normal"
                 required
                 fullWidth
-                name="password"
+                onChange={(e) =>setPassword(e.target.value)}
                 label="Password"
                 type="password"
-                id="password"
                 autoComplete="current-password"
               />
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />
-              <Button
+              /> */}
+              {  showErrorMessage ? <Alert variant="filled" severity="error">
+                {errorMessage}
+              </Alert> : <></>
+              }
+			  {  showSuccessMessage ? <Alert variant="filled" severity="success">
+                {"SIGNING IN!!"}
+              </Alert> : <></>
+              } 
+			  <Button
                 type="submit"
                 fullWidth
                 variant="contained"

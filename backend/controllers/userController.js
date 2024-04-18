@@ -1,19 +1,33 @@
 const mongoose = require('mongoose')
 const userModel = require('../models/UserModel')
 const { response } = require('express')
+const bcrypt = require("bcryptjs")
+const jwt = require('jsonwebtoken')
+const {createToken} = require('../utils/authUtils')
 
 const createUser = async (request,response) => {
-    console.log("in req")
     try {
+        console.log("in req")
+        console.log(request.body)
+        request.body.password = await bcrypt.hash(request.body.password , 10)
+        console.log(request.body)
         const record = await userModel.create(request.body)
-        console.log(record)
-        response.send({"succesfully inserted..." :request.body})
+        if(! record)
+            throw new error();
+        const token = createToken(record._id)
+        response.cookie(
+            "token" , jwt , {
+            withCredentials: true,
+            httpOnly: false,
+          }).status(201)
+        response.send({"LOGGED_IN" :request.body.username , "token" : token})
     } catch(error) {
-        if(error.errorResponse.code == 11000) {
-            response.send({"error" : "Already Exists" , "attribute" : error.errorResponse.keyValue })   
+        console.log(error)
+        if(error.errorResponse && error.errorResponse.code == 11000) { 
+            response.send({"error" : "KEY_ERROR" , "errorDesc" : `${error.errorResponse.keyValue.hasOwnProperty("username") ? "username" : "email"} already exists`, "attribute" : error.errorResponse.keyValue.hasOwnProperty("username") ? "username" : "email" })   
         }
-        else
-            response.send({"Something went wrong" : error})
+        else 
+            response.send({"error" : "SERVER_ERROR" , "errorDesc" : error})
     }
 }
 
@@ -22,33 +36,9 @@ const getUsers = async (request,response) => {
     response.send({"users" : users})
 }
 
-const checkIfUsernameExists = async (request,response) => {
-    const {username} = request.body
-    try {   
-        const uname = await userModel.findOne( (i) => i.username === username)
-        if(uname)
-            response.send({"accountExists" : true, "attribute" : "username" , "username" : username})
-        else
-            response.send({"accountExists" : false, "attribute" : "username" , "username" : username})
-    } catch(error) {
-        response.send({"Something went wrong..." : error , "attribute" : "username" , "username" : username})
-    }
-}
 
-const checkIfEmailExists = async(request,response) => {
-    const {email} = request.body
-    try {   
-        const eId = await userModel.findOne( (i) => i.email === email)
-        if(eId)
-            response.send({"accountExists" : true, "attribute" : "email" , "email" : email})
-        else
-            response.send({"accountExists" : false, "attribute" : "email" , "email" : email})
-    } catch(error) {
-        response.send({"Something went wrong..." : error , "attribute" : "email" , "email" : email})
-    }
-} 
+
 
 module.exports = {
-    createUser , getUsers , checkIfEmailExists ,
-    checkIfUsernameExists 
+    createUser , getUsers
 }

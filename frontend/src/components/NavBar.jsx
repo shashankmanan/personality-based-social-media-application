@@ -14,20 +14,38 @@ import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
+import Login from "@mui/icons-material/Login"
 import Logo from "../resources/expressify-logo-zip-file/png/logo-no-background.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useEffect } from "react";
+import SpokeIcon from '@mui/icons-material/Spoke';
 
-export default function ButtonAppBar() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+export default function NavBar({credentials}) {
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const [isAuth,setIsAuth] = useState(credentials ? credentials : false)
+  const navigate = useNavigate()
 
+  useEffect(() => {
+    if(localStorage.getItem("auth"))
+      setIsAuth(true)
+  },[])
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const logOut = () => {
+    alert("logging out")
+    localStorage.removeItem("auth")
+    localStorage.removeItem("username")
+    setIsAuth(false)
+    navigate('/')
+  }
+  
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "rgba(40, 44, 52, 1)" /* light grey color */ }}>
@@ -106,12 +124,17 @@ export default function ButtonAppBar() {
               transformOrigin={{ horizontal: "right", vertical: "top" }}
               anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
             >
-              <MenuItem onClick={handleClose}>
-                <Avatar /> Profile
+              { isAuth ? <>
+              <Link to="/account/profile">
+                <MenuItem onClick={handleClose}>
+                  <Avatar /> Profile
+                </MenuItem>
+              </Link>
+              <Link to="/account/profile">
+                <MenuItem onClick={handleClose}>
+                  <Avatar /> My account
               </MenuItem>
-              <MenuItem onClick={handleClose}>
-                <Avatar /> My account
-              </MenuItem>
+              </Link>
               <Divider />
               <MenuItem onClick={handleClose}>
                 <ListItemIcon>
@@ -125,12 +148,27 @@ export default function ButtonAppBar() {
                 </ListItemIcon>
                 Settings
               </MenuItem>
-              <MenuItem onClick={handleClose}>
+              <MenuItem onClick={logOut}>
                 <ListItemIcon>
                   <Logout fontSize="small" />
                 </ListItemIcon>
                 Logout
+              </MenuItem> </>
+               : <>
+              <MenuItem onClick={() => navigate('/signin')}>
+                <ListItemIcon>
+                  <Login fontSize="small" />
+                </ListItemIcon>
+                Login
               </MenuItem>
+              <MenuItem onClick={handleClose}>
+                <ListItemIcon>
+                  <SpokeIcon fontSize="small" />
+                </ListItemIcon>
+                  Join Expressify
+              </MenuItem>
+              </> 
+              }
             </Menu>
           </React.Fragment>
         </Toolbar>

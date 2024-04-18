@@ -34,7 +34,9 @@ export default function SignUp() {
   };
 
   const handleClose = () => {
-    navigate("/home")
+    setTimeout(() => {
+      navigate("/account/home");
+    }, 1000);
     setOpen(false);
   };
     const validateInputs = () => {
@@ -82,11 +84,18 @@ export default function SignUp() {
       setSuccessMessage(true)
       handleClickOpen()
     } else {
-      if(response.error.attribute.username)
-        setErrorMessage(`Username already exists , please choose a new one`)
-        if(response.error.attribute.email)
-        setErrorMessage(`Email already exists , please choose a new one`)
-    }
+        switch(response.error) {
+          case "KEY_ERROR" : setErrorMessage(`${response.attribute} already exists`)
+              break;
+          case "SERVER_ERROR" : 
+            console.log("API ERROR")
+            setErrorMessage('Something went wrong...')
+              break;
+          default : setErrorMessage("Something went wrong...")
+            break;
+        }
+        setShowErrorMessage(true)
+      }
   };
 
   return (
@@ -152,12 +161,10 @@ export default function SignUp() {
               onSubmit={handleSubmit}
               sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
             >
-              {/* <form onSubmit={handleSubmit}> */}
               {successMessage ? 
                   <Dialog
                   open={open}
                    onClose={handleClose}
-                  //onClose = { navigate('/home') }
                   aria-labelledby="alert-dialog-title"
                   aria-describedby="alert-dialog-description"
                 >
@@ -192,7 +199,6 @@ export default function SignUp() {
               >
                 Sign up
               </Button>
-              {/* </form> */}
               <Link
                 href="/signin"
                 variant="body2"
