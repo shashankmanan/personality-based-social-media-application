@@ -6,14 +6,15 @@ import { useState } from "react"
 export default function Home() {
   const navigate = useNavigate()
   const [username,setUsername] = useState('')
-
+  const [profileUpdated , setProfileUpdated] = useState(false)
   useEffect(()=>{
     setUsername(localStorage.getItem("username"))
+    
   },[])
   return (
     <div>
-      <NavBar credentials = {true}/>
       <h1>Hello!! {username}</h1>
+      
     </div>
   )
 }

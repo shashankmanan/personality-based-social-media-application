@@ -19,7 +19,7 @@ app.use("/api/" , router)
 
 const start = async () => {
     try {
-        const conn = await mongoose.connect(MONGODB_URL_CLOUD)
+        const conn = await mongoose.connect(MONGODB_URL_LOCAL)
         app.listen(PORT , () => {
             console.log("listening to port ",PORT)
         })

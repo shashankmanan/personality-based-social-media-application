@@ -161,12 +161,14 @@ export default function NavBar({credentials}) {
                 </ListItemIcon>
                 Login
               </MenuItem>
+              <Link to = "/signup">
               <MenuItem onClick={handleClose}>
                 <ListItemIcon>
                   <SpokeIcon fontSize="small" />
                 </ListItemIcon>
                   Join Expressify
               </MenuItem>
+              </Link>
               </> 
               }
             </Menu>

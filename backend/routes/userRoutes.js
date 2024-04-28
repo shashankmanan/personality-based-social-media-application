@@ -14,7 +14,7 @@ Users  /users
 
 const {Router} = require('express')
 const userRouter = Router()
-const {createUser,getUsers, checkIfUsernameExists , checkIfEmailExists} = require('../controllers/userController')
+const {createUser,getUsers,updateProfile,getProfile} = require('../controllers/userController')
 const {signIn} = require('../controllers/authController')
 
 //   http://localhost:5000/api/users/  GET
@@ -28,4 +28,13 @@ userRouter.post('/create', createUser)
 //   http://localhost:5000/api/users/signin  POST
 // signs in a user
 userRouter.post('/signin', signIn)
+
+//https://localhost:5000/api/users/profile/update PUT
+// updates user profile
+userRouter.put('/profile/update' , updateProfile)
+
+//https://localhost:5000/api/users/profile/get POST
+// fetches a user's profile
+userRouter.post('/profile/get' , getProfile)
+
 module.exports = userRouter
