@@ -29,11 +29,11 @@ userRouter.post('/create', createUser)
 // signs in a user
 userRouter.post('/signin', signIn)
 
-//https://localhost:5000/api/users/profile/update PUT
+//   http://localhost:5000/api/users/profile/update PUT
 // updates user profile
 userRouter.put('/profile/update' , updateProfile)
 
-//https://localhost:5000/api/users/profile/get POST
+//   http://localhost:5000/api/users/profile/get POST
 // fetches a user's profile
 userRouter.post('/profile/get' , getProfile)
 

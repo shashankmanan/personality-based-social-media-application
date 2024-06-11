@@ -1,6 +1,7 @@
 import React from 'react'
 import NavBar from '../components/NavBar'
 import Button from '@mui/material/Button'
+import { useState, useEffect } from 'react'
 import Typography from '@mui/material/Typography'
 import background from '../resources/bg-landingpg.jpg'
 import "../styles/landingPage.css"
@@ -11,6 +12,20 @@ import GroupWorkIcon from '@mui/icons-material/GroupWork';
 import { Link } from 'react-router-dom'
 
 export default function LandingPage() {
+	const [isSignedIn , setIsSignedIn ] = useState(false)
+
+	const checkIsSignedIn = () => {
+		if(localStorage.getItem("auth")) {
+			console.log("signed in")
+			setIsSignedIn(true)
+		}
+	}
+
+	useEffect(
+		() => {
+			checkIsSignedIn()
+		} , []
+	)
   return (
 	<div style={{backgroundColor:"#282c34", opacity:"1px"}}>
     	<NavBar />
@@ -19,11 +34,21 @@ export default function LandingPage() {
 			Find Friends that get you!
       	</Typography>
 		</div>
-			<Link to = "/signin">	
-				<Button  variant="contained" color="secondary" style={{height:"100px" , fontSize:"27px",margin:"10px"}}>
-					Lets get Connecting!
-				</Button>
-			</Link>
+			{
+				isSignedIn == true ? 
+				<Link to = "/account/home">	
+					<Button  variant="contained" color="secondary" style={{height:"100px" , fontSize:"27px",margin:"10px"}}>
+						Lets get Connecting!
+					</Button>
+				</Link>
+				:
+				<Link to = "/signin">	
+					<Button  variant="contained" color="secondary" style={{height:"100px" , fontSize:"27px",margin:"10px"}}>
+						Lets get Connecting!
+					</Button>
+				</Link>
+			}
+			
 			<hr />
 			<div>
 				<Typography variant ="h2" style={{margin:"50px"}} className="features">

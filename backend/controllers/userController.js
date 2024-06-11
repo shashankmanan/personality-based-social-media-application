@@ -74,11 +74,11 @@ const updateProfile = async (request,response) => {
             if(profileUpdated)
                 response.status(201).json({"message" : "SUCCESSFULLY_UPDATED" , "username" : request.body.username})
             else
-            response.json({"message" : "SERVER_ERROR" , "username" : request.body.username})            
+            response.status(501).json({"message" : "SERVER_ERROR" , "username" : request.body.username})            
         }
     }
     catch(error) {
-        response.json({"error" : "SERVER_ERROR","errorDesc" : error})
+        response.status(501).json({"error" : "SERVER_ERROR","errorDesc" : error})
     }
 }
 

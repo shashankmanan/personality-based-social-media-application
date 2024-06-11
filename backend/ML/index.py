@@ -19,9 +19,10 @@ print(data.head())
 
 
 
-data.isnull().values.any()
+# data.isnull().values.any()
 
-data.isnull().values.sum()
+# data.isnull().values.sum()
+
 data.dropna(inplace=True)
 
 #data

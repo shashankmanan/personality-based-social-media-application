@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
-import { getUserProfile } from '../API/profileApi';
+import { getUserProfile, updateUserProfile } from '../../API/profileApi';
 
 const MyProfilePage = () => {
   const [firstname , setFirstname] = useState('')
@@ -21,7 +21,7 @@ const MyProfilePage = () => {
     () => {
       setUsername(localStorage.getItem('username'))
       populateUserInfo()
-    }
+    } , []
   )
   
   const populateUserInfo = async () => {
@@ -49,6 +49,15 @@ const MyProfilePage = () => {
       "Birthday" : birthday,
       "Bio" : bio
   })
+  updateUserProfile({
+    "username" : username ,
+    "FirstName" : firstname,
+    "LastName" : lastname,
+    "Address" : address,
+    "PhoneNumber" : phonenumber,
+    "Birthday" : birthday,
+    "Bio" : bio
+})
   }
   return (
     <Box sx={{ flexGrow: 1, p: 3 }}>
