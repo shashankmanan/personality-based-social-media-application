@@ -77,7 +77,22 @@ def classify_personality(data):
     print("my_personity is " , my_personality)
     #return f"my personality is {my_personality}"
     print(type(my_personality))
-    return my_personality
+    lst = list(my_personality)
+    p_name = ""
+    p_num = int(lst[0])
+    if p_num == 0:
+        p_name = "The_Explorer"
+    if p_num == 1 :
+        p_name = "The_Peacemaker"
+    if p_num == 2 :
+        p_name = "The_Sentinel"
+    if p_num == 3 :
+        p_name = "The_Planner"
+    if p_num == 4 :
+        p_name = "The_Social Butterfly"
+    if p_name == "" : 
+        p_name = "The_Planner"
+    return jsonify({"status" : 200 ,"personality" : p_name})
 
 @app.route("/classify",methods=['POST'])
 def route_cl_persona():

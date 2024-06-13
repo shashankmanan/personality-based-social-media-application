@@ -1,9 +1,11 @@
 const {Router} = require('express')
 const userRouter = require('./userRoutes')
+const tribeRouter = require('./tribeRoutes')
 
 const router = Router()
 
 router.use('/users' , userRouter)
+router.use('/tribes' , tribeRouter)
 
 router.get('/' , (req,res) => {
     res.send("hello")

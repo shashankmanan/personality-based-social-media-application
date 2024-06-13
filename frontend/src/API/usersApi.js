@@ -38,9 +38,15 @@ export const signInUser = async (data)  => {
     try  {
         const response = await axios.post(baseURL,data)
         console.log(response)
-        if(response.status == 201) {
+        const tribeBaseURL = "http://localhost:5000/api/tribes/view"
+        console.log(data + " " + data.username)
+        const {username} = data
+        const tribeResponse = await axios.post(tribeBaseURL , {"username" : username })
+        if(response.status == 201 && tribeResponse.status == 200) {
             localStorage.setItem('auth' , response.data.token)
             localStorage.setItem('username' , response.data.LOGGED_IN)
+            console.log(tribeResponse)
+            localStorage.setItem('tribe' , tribeResponse.data.tribe)
             return {"isAuth" : true , error : ""}
         } else {
             switch(response.data.error) {

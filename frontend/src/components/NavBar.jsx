@@ -42,6 +42,7 @@ export default function NavBar({credentials}) {
     alert("logging out")
     localStorage.removeItem("auth")
     localStorage.removeItem("username")
+    localStorage.removeItem("tribe")
     setIsAuth(false)
     navigate('/')
   }
