@@ -86,7 +86,7 @@ export default function NavBar({credentials}) {
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
                 >
-                  <Avatar sx={{ width: 32, height: 32 }}>N</Avatar>
+                  <Avatar sx={{ width: 32, height: 32 }}></Avatar>
                 </IconButton>
               </Tooltip>
             </Box>
@@ -133,7 +133,7 @@ export default function NavBar({credentials}) {
               </Link>
               <Link to="/account/home">
                 <MenuItem onClick={handleClose}>
-                  <Avatar /> My account
+                  <Avatar /> {localStorage.getItem("username")}
               </MenuItem>
               </Link>
               <Divider />

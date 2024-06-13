@@ -90,7 +90,7 @@ const getProfile = async (request,response) => {
         const userProfile = await profileModel.findOne({username : request.body.username})
         if(userProfile) 
            {
-            response.send(userProfile)
+            response.json(userProfile)
            }
         else
             response.send({"error" : "PROFILE_NOT_FOUND"})

@@ -57,6 +57,18 @@ const getTribe = async (request,response) => {
         response.send("Error")
     }
 }
+
+// http://localhost:5000/api/tribes/viewall POST
+// adds a user to their respective tribes
+// request.body => tribe
+
+const getByTribes = async (request,response) => {
+    const {tribe} = request.body
+    const records = await tribeDB.find({"tribe" : tribe})
+    console.log(records)
+    response.status(200).json(records)
+}
+
 module.exports = {
-    addToTribe , getTribe
+    addToTribe , getTribe , getByTribes
 }

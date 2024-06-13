@@ -19,15 +19,15 @@ import TribesHome from "./Tribes/TribesHome"
 import Recents from './Recents';
 import Connect from './Tribes/Connect';
 
-
 export default function FixedBottomNavigation() {
   const [value, setValue] = React.useState(0);
   const ref = React.useRef(null);
   const [page,setPage] = React.useState(<Recents />);
+  const tribesList = React.createContext();
 
   React.useEffect(() => {
     ref.current.ownerDocument.body.scrollTop = 0;
-    console.log("chaneg ",value)
+    console.log("change ",value)
     switch(value) {
       case 0 : setPage(<Recents />)
         break;
@@ -36,6 +36,7 @@ export default function FixedBottomNavigation() {
       case 2 : setPage(<TribesHome />)
       break;
     }
+    
   }, [value]);
 
   return (

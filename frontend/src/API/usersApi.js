@@ -46,7 +46,10 @@ export const signInUser = async (data)  => {
             localStorage.setItem('auth' , response.data.token)
             localStorage.setItem('username' , response.data.LOGGED_IN)
             console.log(tribeResponse)
-            localStorage.setItem('tribe' , tribeResponse.data.tribe)
+            if(tribeResponse.data.tribe)
+                localStorage.setItem('tribe' , tribeResponse.data.tribe)
+            else
+            localStorage.setItem('tribe' , "NOT_TAKEN")
             return {"isAuth" : true , error : ""}
         } else {
             switch(response.data.error) {

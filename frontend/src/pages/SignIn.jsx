@@ -101,7 +101,7 @@ export default function SignInSide() {
                 margin="normal"
                 required
                 fullWidth
-                label="Username or Email address"
+                label="Username"
 				onChange={(e) =>setUsername(e.target.value)}
                 autoComplete="username"
                 autoFocus

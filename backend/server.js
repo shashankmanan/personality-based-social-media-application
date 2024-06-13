@@ -4,12 +4,17 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
 const cookies = require("cookie-parser");
+const socketIo = require('socket.io');
 
 const app = express()
 dotenv.config()
 
 const {PORT,MONGODB_URL_CLOUD,MONGODB_URL_LOCAL} = process.env
 const {router} = require('./routes/index')
+
+const server = http.createServer(app);
+const io = socketIo(server);
+
 
 app.use(bodyParser.json())
 app.use(cors())

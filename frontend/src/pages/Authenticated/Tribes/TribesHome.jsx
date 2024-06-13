@@ -27,6 +27,9 @@ export default function TribesHome() {
                 case "The_Social Butterfly" : 
                     setTribeDesc("The Social Butterfly is marked by a high level of extraversion. These individuals are outgoing, energetic, and assertive. They enjoy being around people and are often the life of the party. The Social Butterfly thrives in social settings, easily forming connections and engaging in conversations. Their enthusiasm and sociability often lead them to have a wide circle of friends and acquaintances. They bring energy and positivity to any gathering, making them natural leaders and connectors within their social networks")
                     break;
+                case "NOT_TAKEN" :
+                    setTribe("none")
+                    break;
             }
         }
     }

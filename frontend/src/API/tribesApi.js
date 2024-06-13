@@ -1,4 +1,4 @@
 import axios from "axios"
 
-const addUserToTribe = (payload) => {
+const getAllUsersFromATribe = (payload) => {
 }
