@@ -59,7 +59,7 @@ const getTribe = async (request,response) => {
 }
 
 // http://localhost:5000/api/tribes/viewall POST
-// adds a user to their respective tribes
+// gets all users
 // request.body => tribe
 
 const getByTribes = async (request,response) => {

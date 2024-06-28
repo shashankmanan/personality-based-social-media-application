@@ -40,7 +40,13 @@ export default function FixedBottomNavigation() {
   }, [value]);
 
   return (
-    <Box sx={{ pb: 7 }} ref={ref}>
+    
+    <Box 
+      ref={ref} 
+      sx={{ 
+        pb: 7, 
+      }}
+    >
       <CssBaseline />
       { page }
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>

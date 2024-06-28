@@ -8,6 +8,8 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
 import axios from 'axios'
+import { Typography } from '@mui/material';
+
 
 export default function Connect() {
   const ref = React.useRef(null);
@@ -73,15 +75,18 @@ export default function Connect() {
 
   return (
     <Box sx={{ pb: 7 }} ref={ref}>
+    <Typography variant = "h3">Lets Expressify!</Typography>
       <CssBaseline />
       <List>
         {profiles.map(({username,bio}, index) => (
+          <> 
           <ListItemButton key={index }>
             <ListItemAvatar>
               <Avatar alt="Profile Picture" />
             </ListItemAvatar>
-            <ListItemText primary={username} secondary={bio ? bio : "Hey! Lets connect!!"}/>
+            <ListItemText primary={username == localStorage.getItem("username")? `${ username } (You)` : username} secondary={bio ? bio : "Hey! Lets connect!!"} />
           </ListItemButton>
+          </>
         ))}
       </List>
       <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>

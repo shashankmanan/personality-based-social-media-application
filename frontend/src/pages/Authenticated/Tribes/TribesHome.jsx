@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Button, Typography, Box } from '@mui/material'
 
 export default function TribesHome() {
     const [tribe,setTribe] = useState("none")
@@ -36,13 +37,14 @@ export default function TribesHome() {
   )
   
     return (
-    <div>
+    <>
+    <Box sx={{ margin: 0, padding: 0 }}>
         { 
             tribe === "none" ? 
             <div>
-                <h1>Take the test! find yout tribe!</h1>
+                <Typography variant="h5" component="h1" >Take the test! find yout tribe!</Typography>
                 <Link to="/account/test">
-                    <button>Click here</button>
+                <Button variant="outlined">Take the test</Button>
                 </Link>
             </div> : 
             <>
@@ -50,7 +52,8 @@ export default function TribesHome() {
             <h3>{tribeDesc}</h3>
             </>
         }
+    </Box>
         
-    </div>
+    </>
   )
 }
